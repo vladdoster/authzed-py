@@ -70,7 +70,8 @@ import_reps = client.BulkImportRelationships((req for req in reqs))
 assert import_reps.num_loaded == 2
 
 export_resp = client.BulkExportRelationships(
-    BulkExportRelationshipsRequest(consistency=Consistency(fully_consistent=True))
+    BulkExportRelationshipsRequest(
+        consistency=Consistency(fully_consistent=True))
 )
 
 rels = []

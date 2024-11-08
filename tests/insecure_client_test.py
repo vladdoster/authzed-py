@@ -6,7 +6,7 @@ from grpcutil import insecure_bearer_token_credentials
 
 from .calls import write_test_schema
 
-## NOTE: these tests aren't usually run. They theoretically could and theoretically
+# NOTE: these tests aren't usually run. They theoretically could and theoretically
 # should be run in CI, but getting an appropriate "remote" container is difficult with
 # github actions; this will happen at some point in the future.
 # To run them: `poetry run pytest -m ""`
@@ -23,14 +23,16 @@ remote_host = "192.168.something.something"
 @pytest.mark.skip(reason="Makes a remote call that we haven't yet supported in CI")
 async def test_normal_async_client_raises_error_on_insecure_remote_call(token):
     with pytest.raises(grpc.RpcError):
-        client = AsyncClient(f"{remote_host}:50051", insecure_bearer_token_credentials(token))
+        client = AsyncClient(f"{remote_host}:50051",
+                             insecure_bearer_token_credentials(token))
         await write_test_schema(client)
 
 
 @pytest.mark.skip(reason="Makes a remote call that we haven't yet supported in CI")
 async def test_normal_sync_client_raises_error_on_insecure_remote_call(token):
     with pytest.raises(grpc.RpcError):
-        client = SyncClient(f"{remote_host}:50051", insecure_bearer_token_credentials(token))
+        client = SyncClient(f"{remote_host}:50051",
+                            insecure_bearer_token_credentials(token))
         await write_test_schema(client)
 
 
