@@ -1,21 +1,6 @@
 version = 1
 
-[[analyzers]]
-name = "javascript"
-
-  [analyzers.meta]
-  plugins = ["react"]
-  environment = [
-    "jest",
-    "cypress",
-    "nodejs"
-  ]
-
-[[analyzers]]
-name = "java"
-
-  [analyzers.meta]
-  runtime_version = "11"
+test_patterns = ["tests/**"]
 
 [[analyzers]]
 name = "python"
@@ -31,6 +16,3 @@ name = "autopep8"
 
 [[transformers]]
 name = "isort"
-
-[[transformers]]
-name = "google-java-format"
