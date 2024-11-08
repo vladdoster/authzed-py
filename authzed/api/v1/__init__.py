@@ -73,7 +73,8 @@ class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub,
     """
 
     def __init__(self, target, credentials, options=None, compression=None):
-        channel = self.create_channel(target, credentials, options, compression)
+        channel = self.create_channel(
+            target, credentials, options, compression)
         self.init_stubs(channel)
 
     def init_stubs(self, channel):
@@ -98,7 +99,8 @@ class AsyncClient(Client):
     """
 
     def __init__(self, target, credentials, options=None, compression=None):
-        channel = grpc.aio.secure_channel(target, credentials, options, compression)
+        channel = grpc.aio.secure_channel(
+            target, credentials, options, compression)
         self.init_stubs(channel)
 
 
@@ -108,7 +110,8 @@ class SyncClient(Client):
     """
 
     def __init__(self, target, credentials, options=None, compression=None):
-        channel = grpc.secure_channel(target, credentials, options, compression)
+        channel = grpc.secure_channel(
+            target, credentials, options, compression)
         self.init_stubs(channel)
 
 
@@ -122,7 +125,8 @@ class TokenAuthorization(ClientInterceptor):
         request_or_iterator: Any,
         call_details: grpc.ClientCallDetails,
     ):
-        metadata: list[tuple[str, str | bytes]] = [("authorization", f"Bearer {self._token}")]
+        metadata: list[tuple[str, str | bytes]] = [
+            ("authorization", f"Bearer {self._token}")]
         if call_details.metadata is not None:
             metadata = [*metadata, *call_details.metadata]
 
@@ -155,7 +159,8 @@ class InsecureClient(Client):
         compression=None,
     ):
         fake_credentials = grpc.local_channel_credentials()
-        channel = self.create_channel(target, fake_credentials, options, compression)
+        channel = self.create_channel(
+            target, fake_credentials, options, compression)
         auth_interceptor = TokenAuthorization(token)
 
         insecure_channel = grpc.insecure_channel(target, options, compression)
