@@ -48,10 +48,12 @@ def relationship_generator(num_relationships):
     while idx < num_relationships:
         idx += 1
         yield Relationship(
-            resource=ObjectReference(object_type="resource", object_id=str(idx)),
+            resource=ObjectReference(
+                object_type="resource", object_id=str(idx)),
             relation="viewer",
             subject=SubjectReference(
-                object=ObjectReference(object_type="user", object_id="our_user")
+                object=ObjectReference(
+                    object_type="user", object_id="our_user")
             ),
         )
 
@@ -65,10 +67,12 @@ RELATIONSHIPS_PER_REQUEST_CHUNK = 10
 # We iterate over chunks of size RELATIONSHIPS_PER_TRANSACTION, and then we break each request into
 # chunks of size RELATIONSHIPS_PER_REQUEST_CHUNK.
 transaction_chunks = batched(
-    relationship_generator(TOTAL_RELATIONSHIPS_TO_WRITE), RELATIONSHIPS_PER_TRANSACTION
+    relationship_generator(
+        TOTAL_RELATIONSHIPS_TO_WRITE), RELATIONSHIPS_PER_TRANSACTION
 )
 for relationships_for_request in transaction_chunks:
-    request_chunks = batched(relationships_for_request, RELATIONSHIPS_PER_REQUEST_CHUNK)
+    request_chunks = batched(relationships_for_request,
+                             RELATIONSHIPS_PER_REQUEST_CHUNK)
     response = client.ImportBulkRelationships(
         (
             ImportBulkRelationshipsRequest(relationships=relationships_chunk)
