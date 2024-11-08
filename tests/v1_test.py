@@ -58,7 +58,8 @@ async def async_client(token) -> AsyncClient:
 
 # The configs array paramaterizes the tests in this file to run with different clients.
 # To make changes, modify both the configs array and the config fixture
-Config = Literal["Client_autodetect_sync", "Client_autodetect_async", "SyncClient", "AsyncClient"]
+Config = Literal["Client_autodetect_sync",
+                 "Client_autodetect_async", "SyncClient", "AsyncClient"]
 configs: List[Config] = [
     "Client_autodetect_sync",
     "Client_autodetect_async",
@@ -282,7 +283,8 @@ async def test_bulk_export_import(client):
 
     # validate bulk export returns all relationships written
     resp = client.BulkExportRelationships(
-        BulkExportRelationshipsRequest(consistency=Consistency(fully_consistent=True))
+        BulkExportRelationshipsRequest(
+            consistency=Consistency(fully_consistent=True))
     )
 
     rels = await rels_from_bulk_export_response(resp)
@@ -297,7 +299,8 @@ async def test_bulk_export_import(client):
 
     # validate indeed empty client is empty
     resp = empty_client.BulkExportRelationships(
-        BulkExportRelationshipsRequest(consistency=Consistency(fully_consistent=True))
+        BulkExportRelationshipsRequest(
+            consistency=Consistency(fully_consistent=True))
     )
 
     no_rels = await rels_from_bulk_export_response(resp)
@@ -310,7 +313,8 @@ async def test_bulk_export_import(client):
 
     # validate all relationships were imported
     resp = empty_client.BulkExportRelationships(
-        BulkExportRelationshipsRequest(consistency=Consistency(fully_consistent=True))
+        BulkExportRelationshipsRequest(
+            consistency=Consistency(fully_consistent=True))
     )
     rels = await rels_from_bulk_export_response(resp)
     assert len(rels) == 4
@@ -378,7 +382,8 @@ async def write_test_tuples(client):
                             resource=post_one,
                             relation="caveated_reader",
                             subject=beatrice,
-                            optional_caveat=ContextualizedCaveat(caveat_name="likes_harry_potter"),
+                            optional_caveat=ContextualizedCaveat(
+                                caveat_name="likes_harry_potter"),
                         ),
                     ),
                 ]
