@@ -20,7 +20,8 @@ resp = client.WriteRelationships(
             RelationshipUpdate(
                 operation=RelationshipUpdate.Operation.OPERATION_CREATE,
                 relationship=Relationship(
-                    resource=ObjectReference(object_type="blog/post", object_id="1"),
+                    resource=ObjectReference(
+                        object_type="blog/post", object_id="1"),
                     relation="writer",
                     subject=SubjectReference(
                         object=ObjectReference(
@@ -34,7 +35,8 @@ resp = client.WriteRelationships(
             RelationshipUpdate(
                 operation=RelationshipUpdate.Operation.OPERATION_CREATE,
                 relationship=Relationship(
-                    resource=ObjectReference(object_type="blog/post", object_id="1"),
+                    resource=ObjectReference(
+                        object_type="blog/post", object_id="1"),
                     relation="reader",
                     subject=SubjectReference(
                         object=ObjectReference(
